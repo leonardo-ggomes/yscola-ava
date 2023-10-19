@@ -10,7 +10,7 @@ export class EstudanteController{
     constructor(estudanteService: EstudanteService){
         this._estudanteService = estudanteService
     }
-
+           
     @route("/", methods.GET)
     public async index(req: Request, res: Response): Promise<void>{
         res.send(await this._estudanteService.obter())

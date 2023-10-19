@@ -2,6 +2,8 @@ import express, { Application } from 'express';
 import { PATH_KEY } from './decorators/decorator.server';
 import { methods } from './enums/enum.server';
 import { info } from '../../utils/messages.utils';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from '../../../swagger-jsdoc';
 
 export class Server{
 
@@ -12,6 +14,7 @@ export class Server{
 
         Server.middleware();
         Server.listen();
+        Server.useDoc();
     }
 
     public static listen(port : Number = 3000) : void {
@@ -20,6 +23,10 @@ export class Server{
 
     private static middleware(): void{
         Server.app.use(express.json())
+    }
+
+    private static useDoc(){
+        Server.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     }
 
     public static useRoute(instances: any[]): void{

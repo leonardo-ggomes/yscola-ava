@@ -27,16 +27,8 @@ class EstudanteController {
             res.send(yield this._estudanteService.obter());
         });
     }
-    teste(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            res.send(yield this._estudanteService.obter());
-        });
-    }
 }
 exports.EstudanteController = EstudanteController;
 __decorate([
     (0, decorator_server_1.route)("/", enum_server_1.methods.GET)
 ], EstudanteController.prototype, "index", null);
-__decorate([
-    (0, decorator_server_1.route)("/teste", enum_server_1.methods.GET)
-], EstudanteController.prototype, "teste", null);
