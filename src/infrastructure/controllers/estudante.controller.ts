@@ -16,11 +16,4 @@ export class EstudanteController{
         res.send(await this._estudanteService.obter())
     }
 
-    @route("/teste", methods.GET)
-    public async teste(req: Request, res: Response): Promise<void>{
-        res.send(await this._estudanteService.obter())
-    }
-
-
-
 }
