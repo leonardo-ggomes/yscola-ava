@@ -16,11 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EstudanteController = void 0;
-function route(path) {
-    return function (target, propertyKey) {
-        console.log(`target ${target[0]} e propertyKey ${propertyKey} e path ${path}`);
-    };
-}
+const decorator_server_1 = require("../server/decorators/decorator.server");
 class EstudanteController {
     constructor(estudanteService) {
         this._estudanteService = estudanteService;
@@ -33,5 +29,5 @@ class EstudanteController {
 }
 exports.EstudanteController = EstudanteController;
 __decorate([
-    route('meu decorador')
+    (0, decorator_server_1.route)("/")
 ], EstudanteController.prototype, "index", null);
