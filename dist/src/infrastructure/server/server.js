@@ -6,16 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const decorator_server_1 = require("./decorators/decorator.server");
+const enum_server_1 = require("./enums/enum.server");
+const messages_utils_1 = require("../../utils/messages.utils");
 class Server {
-    // private static _estudanteController: EstudanteController;
     static initialize() {
         Server.app = (0, express_1.default)();
-        // const dbEstudante: DbEstudante = new DbEstudante();
-        // Server._estudanteController = new EstudanteController(
-        //     new EstudanteService(dbEstudante)
-        // );
         Server.middleware();
-        // Server.route();
         Server.listen();
     }
     static listen(port = 3000) {
@@ -24,15 +20,26 @@ class Server {
     static middleware() {
         Server.app.use(express_1.default.json());
     }
-    // private static route(){
-    //     Server.app.get('/', Server._estudanteController.index.bind(Server._estudanteController));
-    // }
     static useRoute(instances) {
         instances.forEach(instance => {
             for (const methodName of Object.getOwnPropertyNames(Object.getPrototypeOf(instance))) {
-                const path = Reflect.getMetadata(decorator_server_1.PATH_KEY, instance, methodName);
-                if (path) {
-                    Server.app.get(path, instance[methodName].bind(instance));
+                const metadata = Reflect.getMetadata(decorator_server_1.PATH_KEY, instance, methodName);
+                if (metadata) {
+                    switch (metadata.method) {
+                        case enum_server_1.methods.GET:
+                            Server.app.get(metadata.path, instance[methodName].bind(instance));
+                            break;
+                        case enum_server_1.methods.POST:
+                            Server.app.post(metadata.path, instance[methodName].bind(instance));
+                            break;
+                        case enum_server_1.methods.PUT:
+                            Server.app.put(metadata.path, instance[methodName].bind(instance));
+                            break;
+                        case enum_server_1.methods.DELETE:
+                            Server.app.delete(metadata.path, instance[methodName].bind(instance));
+                            break;
+                        default: console.info(messages_utils_1.info.notRouter);
+                    }
                 }
             }
         });

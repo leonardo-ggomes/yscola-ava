@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { EstudanteService } from "../../application/services/estudante.services";
 import { route } from '../server/decorators/decorator.server';
+import { methods } from "../server/enums/enum.server";
 
 export class EstudanteController{
 
@@ -10,10 +11,16 @@ export class EstudanteController{
         this._estudanteService = estudanteService
     }
 
-    @route("/")
+    @route("/", methods.GET)
     public async index(req: Request, res: Response): Promise<void>{
         res.send(await this._estudanteService.obter())
     }
+
+    @route("/teste", methods.GET)
+    public async teste(req: Request, res: Response): Promise<void>{
+        res.send(await this._estudanteService.obter())
+    }
+
 
 
 }

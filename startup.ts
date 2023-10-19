@@ -12,8 +12,8 @@ class Startup{
 
     private static inject(){            
         const instances: any[] = []
-               
-        //Coloque aqui
+
+        //injeção de dependência
         instances.push(new EstudanteController(new EstudanteService(new DbEstudante())));
 
         

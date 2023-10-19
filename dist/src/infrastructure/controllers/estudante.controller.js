@@ -17,6 +17,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EstudanteController = void 0;
 const decorator_server_1 = require("../server/decorators/decorator.server");
+const enum_server_1 = require("../server/enums/enum.server");
 class EstudanteController {
     constructor(estudanteService) {
         this._estudanteService = estudanteService;
@@ -26,8 +27,16 @@ class EstudanteController {
             res.send(yield this._estudanteService.obter());
         });
     }
+    teste(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.send(yield this._estudanteService.obter());
+        });
+    }
 }
 exports.EstudanteController = EstudanteController;
 __decorate([
-    (0, decorator_server_1.route)("/")
+    (0, decorator_server_1.route)("/", enum_server_1.methods.GET)
 ], EstudanteController.prototype, "index", null);
+__decorate([
+    (0, decorator_server_1.route)("/teste", enum_server_1.methods.GET)
+], EstudanteController.prototype, "teste", null);

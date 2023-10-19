@@ -1,5 +1,7 @@
 import express, { Application } from 'express';
 import { PATH_KEY } from './decorators/decorator.server';
+import { methods } from './enums/enum.server';
+import { info } from '../../utils/messages.utils';
 
 export class Server{
 
@@ -25,10 +27,16 @@ export class Server{
         instances.forEach(instance => {
             for (const methodName of Object.getOwnPropertyNames(Object.getPrototypeOf(instance))) {
 
-                const path = Reflect.getMetadata(PATH_KEY, instance, methodName);
-    
-                if (path) {
-                  Server.app.get(path, instance[methodName].bind(instance));
+                const metadata: {path: string, method: methods} = Reflect.getMetadata(PATH_KEY, instance, methodName);
+                
+                if (metadata) {                         
+                    switch(metadata.method){
+                        case methods.GET:  Server.app.get(metadata.path, instance[methodName].bind(instance)); break;
+                        case methods.POST:  Server.app.post(metadata.path, instance[methodName].bind(instance)); break;
+                        case methods.PUT:  Server.app.put(metadata.path, instance[methodName].bind(instance)); break;
+                        case methods.DELETE:  Server.app.delete(metadata.path, instance[methodName].bind(instance)); break;
+                        default: console.info(info.notRouter)
+                    }                   
                 }
               }   
         });

@@ -11,7 +11,7 @@ class Startup {
     }
     static inject() {
         const instances = [];
-        //Coloque aqui
+        //injeção de dependência
         instances.push(new estudante_controller_1.EstudanteController(new estudante_services_1.EstudanteService(new estudante_database_1.DbEstudante())));
         server_1.Server.useRoute(instances);
     }
