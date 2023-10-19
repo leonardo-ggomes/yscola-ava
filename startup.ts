@@ -1,3 +1,12 @@
 import { Server } from './src/infrastructure/server/server';
 
-new Server().listen();
+class Startup{
+
+    public static execute(){
+        Server.initialize();
+    }
+
+}
+
+Startup.execute()
+

@@ -5,32 +5,42 @@ import { DbEstudante } from '../database/entities/estudante.database';
 
 export class Server{
 
-    private readonly server : Application;
-    private readonly _estudanteController: EstudanteController;
+    private static app : Application;
+    private static _estudanteController: EstudanteController;
 
-    constructor(){
-        this.server = express();
+    public static initialize(){
+        Server.app = express();
 
         const dbEstudante: DbEstudante = new DbEstudante();
 
-        this._estudanteController = new EstudanteController(
+        Server._estudanteController = new EstudanteController(
             new EstudanteService(dbEstudante)
         );
 
-        this.middleware()
-        this.route();
+        Server.middleware();
+        Server.route();
+        Server.listen();
     }
 
-    public listen(port : Number = 3000) : void {
-        this.server.listen(port, () => console.log(`Online Server on port ${port}`));
+    public static listen(port : Number = 3000) : void {
+        Server.app.listen(port, () => console.log(`Online Server on port ${port}`));
     }
 
-    private middleware(){
-        this.server.use(express.json())
+    private static middleware(){
+        Server.app.use(express.json())
     }
 
-    private route(){
-        this.server.get('/', this._estudanteController.index.bind(this._estudanteController));
+    private static route(){
+        Server.app.get('/', Server._estudanteController.index.bind(Server._estudanteController));
     }
+
+    // private static useRoute(){
+    //     for (const methodName of Object.getOwnPropertyNames(Object.getPrototypeOf(minhaInstancia))) {
+    //         const path = Reflect.getMetadata(PATH_KEY, minhaInstancia, methodName);
+    //         if (path) {
+    //           app.get(path, minhaInstancia[methodName].bind(minhaInstancia));
+    //         }
+    //       }          
+    // }
 
 }

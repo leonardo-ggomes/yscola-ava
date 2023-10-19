@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { EstudanteService } from "../../application/services/estudante.services";
-import { IEstudanteRepository } from "../../domain/repositories/estudante.repository";
-
+import { route } from '../server/decorators/decorator.server';
 
 export class EstudanteController{
 
@@ -11,6 +10,7 @@ export class EstudanteController{
         this._estudanteService = estudanteService
     }
 
+    @route("/")
     public async index(req: Request, res: Response): Promise<void>{
         res.send(await this._estudanteService.obter())
     }

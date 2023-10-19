@@ -9,21 +9,22 @@ const estudante_services_1 = require("../../application/services/estudante.servi
 const estudante_controller_1 = require("../controllers/estudante.controller");
 const estudante_database_1 = require("../database/entities/estudante.database");
 class Server {
-    constructor() {
-        this.server = (0, express_1.default)();
+    static initialize() {
+        Server.app = (0, express_1.default)();
         const dbEstudante = new estudante_database_1.DbEstudante();
-        this._estudanteController = new estudante_controller_1.EstudanteController(new estudante_services_1.EstudanteService(dbEstudante));
-        this.middleware();
-        this.route();
+        Server._estudanteController = new estudante_controller_1.EstudanteController(new estudante_services_1.EstudanteService(dbEstudante));
+        Server.middleware();
+        Server.route();
+        Server.listen();
     }
-    listen(port = 3000) {
-        this.server.listen(port, () => console.log(`Online Server on port ${port}`));
+    static listen(port = 3000) {
+        Server.app.listen(port, () => console.log(`Online Server on port ${port}`));
     }
-    middleware() {
-        this.server.use(express_1.default.json());
+    static middleware() {
+        Server.app.use(express_1.default.json());
     }
-    route() {
-        this.server.get('/', this._estudanteController.index.bind(this._estudanteController));
+    static route() {
+        Server.app.get('/', Server._estudanteController.index.bind(Server._estudanteController));
     }
 }
 exports.Server = Server;
