@@ -3,9 +3,9 @@ import { Pessoa } from './Pessoa';
 
 export class Estudante extends Pessoa{
    
-    private _carteirinha: String;
+    private _carteirinha: string;
 
-    constructor(nome: String, sobrenome: String, email: Email, senha: string, carteirinha: String){
+    constructor(nome: string, sobrenome: string, email: Email, senha: string, carteirinha: string){
        super(nome, sobrenome, email, senha)
        this._carteirinha = carteirinha;
     }

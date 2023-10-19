@@ -3,9 +3,9 @@ import { Pessoa } from './Pessoa';
 
 export class Professor extends Pessoa{
    
-    private _nif: Number;
+    private _nif: number;
 
-    constructor(nome: String, sobrenome: String, email: Email, senha: string, nif: Number){
+    constructor(nome: string, sobrenome: string, email: Email, senha: string, nif: number){
        super(nome, sobrenome, email, senha)
        this._nif = nif;
     }

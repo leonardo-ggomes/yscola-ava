@@ -3,12 +3,13 @@ import { errors } from '../../utils/messages.utils';
 
 export class Pessoa{
 
-    private _nome: String;
-    private _sobrenome: String;
+    private _id?: number;
+    private _nome: string;
+    private _sobrenome: string;
     private _email: Email;
-    private _senha: String;
+    private _senha: string;
 
-    constructor(nome: String, sobrenome: String, email: Email, senha: string){
+    constructor(nome: string, sobrenome: string, email: Email, senha: string){
 
         if(this.constructor == Pessoa){
             throw Error(errors.abstract)
@@ -18,6 +19,14 @@ export class Pessoa{
         this._sobrenome = sobrenome;
         this._email = email;
         this._senha = senha;
+    }
+
+    get id(){
+        return this._id;
+    }
+
+    set id(value){
+        this._id = value;
     }
 
     get nome(){
