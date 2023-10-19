@@ -1,11 +1,15 @@
+import { IEstudanteRepository } from "../../domain/repositories/estudante.repository"
+
 export class RegistrarEstudante{
 
-    constructor(){
+    private readonly _registrarEstudante: IEstudanteRepository;
 
+    constructor(registrarEstudante: IEstudanteRepository){
+        this._registrarEstudante = registrarEstudante;
     }
 
-    async execute(): Promise<void> {
-        console.log("teste")
+    public async execute(): Promise<void> {
+        this._registrarEstudante.obter()
     }
 
 }

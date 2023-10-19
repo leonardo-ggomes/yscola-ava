@@ -1,3 +1,3 @@
-import { Server } from './src/infrastructure/server/server'
+import { Server } from './src/infrastructure/server/server';
 
-new Server().listen()
+new Server().listen();

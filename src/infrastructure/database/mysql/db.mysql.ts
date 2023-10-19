@@ -10,7 +10,7 @@ export class DbMySql<T> implements IDatabase<T>{
         this.connection = mysql.createConnection({database:'dbava', host:'127.0.0.1', password:'', user:'root'})
     }      
 
-    dbInsert(sql: string, obj: T): Promise<any>{
+    public dbInsert(sql: string, obj: T): Promise<any>{
 
         return new Promise((resolve, reject) => {
             this.connection.query(sql, obj, (err, results) => {
@@ -24,7 +24,7 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    dbSelect(sql: string): Promise<any>{
+    public dbSelect(sql: string): Promise<any>{
         return new Promise((resolve, reject) => {
             this.connection.query(sql, (err, results) => {
               if (err) {
@@ -37,7 +37,7 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    dbDelete(sql: string, id: number): Promise<any>{
+    public dbDelete(sql: string, id: number): Promise<any>{
         return new Promise((resolve, reject) => {
             this.connection.query(sql, id, (err, results) => {
               if (err) {
@@ -50,7 +50,7 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    dbUpdate(sql:string, obj: T): Promise<any>{
+    public dbUpdate(sql:string, obj: T): Promise<any>{
         return new Promise((resolve, reject) => {
             this.connection.query(sql, obj, (err, results) => {
               if (err) {
@@ -63,7 +63,7 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    dbConnect(): void {
+    public dbConnect(): void {
         this.connection.connect((err) => {
           if (err) {
             console.error(errors.dbconnection, err);
@@ -73,7 +73,7 @@ export class DbMySql<T> implements IDatabase<T>{
         });
     }
 
-    dbClose(): void {
+    public dbClose(): void {
         this.connection.end((err) => {
             if (err) {
                 console.error(errors.dbconnection, err);
@@ -81,5 +81,5 @@ export class DbMySql<T> implements IDatabase<T>{
                 console.log(success.dbconnection);
             }
         });
-      }
+    }
 }

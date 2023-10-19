@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegistrarEstudante = void 0;
-class RegistrarEstudante {
-    constructor(registrarEstudante) {
-        this._registrarEstudante = registrarEstudante;
+exports.EstudanteController = void 0;
+class EstudanteController {
+    constructor(estudanteService) {
+        this._estudanteService = estudanteService;
     }
-    execute() {
+    index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            this._registrarEstudante.obter();
+            res.send(yield this._estudanteService.obter());
         });
     }
 }
-exports.RegistrarEstudante = RegistrarEstudante;
+exports.EstudanteController = EstudanteController;
