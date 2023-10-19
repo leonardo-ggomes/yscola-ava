@@ -12,6 +12,12 @@ class Pessoa {
         this._email = email;
         this._senha = senha;
     }
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value;
+    }
     get nome() {
         return this._nome;
     }

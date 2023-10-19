@@ -19,12 +19,12 @@ exports.EstudanteController = void 0;
 const decorator_server_1 = require("../server/decorators/decorator.server");
 const enum_server_1 = require("../server/enums/enum.server");
 class EstudanteController {
-    constructor(estudanteService) {
-        this._estudanteService = estudanteService;
+    constructor(registrarEstudanteUseCase) {
+        this._registrarEstudanteUseCase = registrarEstudanteUseCase;
     }
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.send(yield this._estudanteService.obter());
+            res.json(yield this._registrarEstudanteUseCase.execute());
         });
     }
 }
