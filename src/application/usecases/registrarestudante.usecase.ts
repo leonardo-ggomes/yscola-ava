@@ -1,5 +1,5 @@
 import { Estudante } from "../../domain/entities/Estudante";
-import { IEstudanteRepository } from "../../domain/repositories/estudante.repository"
+import { IEstudanteRepository } from "../../repository/entities/estudante.repository"
 
 export class RegistrarEstudante{
 

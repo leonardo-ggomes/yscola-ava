@@ -1,13 +1,15 @@
+import * as dotenv from "dotenv";
 import mysql from 'mysql2';
-import { IDatabase } from '../../interfaces/database.interface';
+import { IDatabase } from '../interfaces/database.interface';
 import { errors, success } from '../../../utils/messages.utils';
+dotenv.config();
 
 export class DbMySql<T> implements IDatabase<T>{
 
     protected readonly connection: mysql.Connection;
 
     constructor(){
-        this.connection = mysql.createConnection({database:'dbava', host:'127.0.0.1', password:'', user:'root'})
+        this.connection = mysql.createConnection({database: process.env.DATABASE, host: process.env.HOST, password: process.env.PASSWORD, user: process.env.USER})
     }      
 
     public dbInsert(sql: string, obj: T): Promise<any>{

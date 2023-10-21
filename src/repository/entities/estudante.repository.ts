@@ -1,4 +1,4 @@
-import { Estudante } from "../entities/Estudante";
+import { Estudante } from "../../domain/entities/Estudante";
 
 export interface IEstudanteRepository{
     adicionar(estudante: Estudante): Promise<number>,

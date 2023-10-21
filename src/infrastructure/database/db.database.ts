@@ -1,5 +1,5 @@
 import { errors } from "../../utils/messages.utils";
-import { IDatabase } from "../interfaces/database.interface";
+import { IDatabase } from "./interfaces/database.interface";
 
 export class Db<T> implements IDatabase<T> {
 

@@ -1,7 +1,6 @@
 import { Estudante } from "../../../domain/entities/Estudante";
-import { IEstudanteRepository } from "../../../domain/repositories/estudante.repository";
+import { IEstudanteRepository } from "../../../repository/entities/estudante.repository";
 import { Db } from "../db.database";
-import { IDatabase } from "../../interfaces/database.interface";
 import { DbMySql } from "../mysql/db.mysql";
 
 export class DbEstudante extends Db<Estudante> implements IEstudanteRepository {

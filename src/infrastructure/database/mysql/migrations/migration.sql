@@ -1,7 +1,5 @@
-create database dbava;
+create database if not exists dbava;
 use dbava;
-
-drop table estudantes;
 
 
 create table estudantes(
