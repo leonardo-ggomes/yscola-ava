@@ -9,17 +9,17 @@ class Db {
         }
         this._connection = connection;
     }
-    dbInsert(cmd, obj) {
-        return this._connection.dbInsert(cmd, obj);
+    dbInsert(cmd, params) {
+        return this._connection.dbInsert(cmd, params);
     }
-    dbSelect(cmd) {
-        return this._connection.dbSelect(cmd);
+    dbSelect(cmd, params) {
+        return this._connection.dbSelect(cmd, params);
     }
-    dbDelete(cmd, id) {
-        return this._connection.dbDelete(cmd, id);
+    dbDelete(cmd, params) {
+        return this._connection.dbDelete(cmd, params);
     }
-    dbUpdate(cmd, obj) {
-        return this._connection.dbUpdate(cmd, obj);
+    dbUpdate(cmd, params) {
+        return this._connection.dbUpdate(cmd, params);
     }
     dbConnect() {
         this._connection.dbConnect();

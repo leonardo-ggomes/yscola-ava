@@ -1,21 +1,34 @@
 import * as dotenv from "dotenv";
-import mysql from 'mysql2';
+import { Connection } from 'mysql2';
 import { IDatabase } from '../interfaces/database.interface';
 import { errors, success } from '../../../utils/messages.utils';
 dotenv.config();
 
 export class DbMySql<T> implements IDatabase<T>{
 
-    protected readonly connection: mysql.Connection;
+    protected readonly connection: Connection;
 
-    constructor(){
-        this.connection = mysql.createConnection({database: process.env.DATABASE, host: process.env.HOST, password: process.env.PASSWORD, user: process.env.USER})
+    constructor(connection: Connection){
+        this.connection = connection;
     }      
 
-    public dbInsert(sql: string, obj: T): Promise<any>{
+    public dbInsert(sql: string, params: Array<any>): Promise<any>{
 
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, obj, (err, results) => {
+            this.connection.query(sql, params, (err, results: any) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(results.insertId);
+              }
+            });
+        });
+
+    }
+
+    public dbSelect(sql: string, params: Array<any>): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, params, (err, results) => {
               if (err) {
                 reject(err);
               } else {
@@ -26,9 +39,9 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    public dbSelect(sql: string): Promise<any>{
+    public dbDelete(sql: string, params: Array<any>): Promise<any>{
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, (err, results) => {
+            this.connection.query(sql, params, (err, results) => {
               if (err) {
                 reject(err);
               } else {
@@ -39,22 +52,9 @@ export class DbMySql<T> implements IDatabase<T>{
 
     }
 
-    public dbDelete(sql: string, id: number): Promise<any>{
+    public dbUpdate(sql:string, params: Array<any>): Promise<any>{
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, id, (err, results) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(results);
-              }
-            });
-        });
-
-    }
-
-    public dbUpdate(sql:string, obj: T): Promise<any>{
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, obj, (err, results) => {
+            this.connection.query(sql, params, (err, results) => {
               if (err) {
                 reject(err);
               } else {

@@ -13,20 +13,20 @@ export class Db<T> implements IDatabase<T> {
     this._connection = connection;
   }
 
-  public dbInsert(cmd: string, obj: T): Promise<number> {
-    return this._connection.dbInsert(cmd, obj);
+  public dbInsert(cmd: string, params: Array<any>): Promise<number> {
+    return this._connection.dbInsert(cmd, params);
   }
 
-  public dbSelect(cmd: string): Promise<T> {
-    return this._connection.dbSelect(cmd);
+  public dbSelect(cmd: string, params: Array<any>): Promise<T> {
+    return this._connection.dbSelect(cmd, params);
   }
 
-  public dbDelete(cmd: string, id: number): Promise<number> {
-    return this._connection.dbDelete(cmd, id);
+  public dbDelete(cmd: string, params: Array<any>): Promise<number> {
+    return this._connection.dbDelete(cmd, params);
   }
 
-  public dbUpdate(cmd: string, obj: T): Promise<number> {
-    return this._connection.dbUpdate(cmd, obj);
+  public dbUpdate(cmd: string, params: Array<any>): Promise<number> {
+    return this._connection.dbUpdate(cmd, params);
   }  
 
   public dbConnect(): void {

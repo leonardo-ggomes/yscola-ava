@@ -22,22 +22,30 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DbMySql = void 0;
 const dotenv = __importStar(require("dotenv"));
-const mysql2_1 = __importDefault(require("mysql2"));
 const messages_utils_1 = require("../../../utils/messages.utils");
 dotenv.config();
 class DbMySql {
-    constructor() {
-        this.connection = mysql2_1.default.createConnection({ database: process.env.DATABASE, host: process.env.HOST, password: process.env.PASSWORD, user: process.env.USER });
+    constructor(connection) {
+        this.connection = connection;
     }
-    dbInsert(sql, obj) {
+    dbInsert(sql, params) {
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, obj, (err, results) => {
+            this.connection.query(sql, params, (err, results) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(results.insertId);
+                }
+            });
+        });
+    }
+    dbSelect(sql, params) {
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, params, (err, results) => {
                 if (err) {
                     reject(err);
                 }
@@ -47,9 +55,9 @@ class DbMySql {
             });
         });
     }
-    dbSelect(sql) {
+    dbDelete(sql, params) {
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, (err, results) => {
+            this.connection.query(sql, params, (err, results) => {
                 if (err) {
                     reject(err);
                 }
@@ -59,21 +67,9 @@ class DbMySql {
             });
         });
     }
-    dbDelete(sql, id) {
+    dbUpdate(sql, params) {
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, id, (err, results) => {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(results);
-                }
-            });
-        });
-    }
-    dbUpdate(sql, obj) {
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, obj, (err, results) => {
+            this.connection.query(sql, params, (err, results) => {
                 if (err) {
                     reject(err);
                 }
