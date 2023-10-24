@@ -15,36 +15,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmpresaController = void 0;
+exports.EstudanteController = void 0;
 const decorator_server_1 = require("../server/decorators/decorator.server");
 const enum_server_1 = require("../server/enums/enum.server");
-const salariominimo_bancocentral_1 = require("../../ExternalServices/BancoCentral/salariominimo.bancocentral");
-class EmpresaController {
-    constructor(registrarEmpresaUseCase) {
-        this._registrarEmpresaUseCase = registrarEmpresaUseCase;
+class EstudanteController {
+    constructor(registrarEstudanteUseCase) {
+        this._registrarEstudanteUseCase = registrarEstudanteUseCase;
     }
-    salarioBCAsync(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            res.json(yield salariominimo_bancocentral_1.SalarioMinimoBC.salarioMinimo());
-        });
-    }
-    cadastrarEmpresaAsync(req, res) {
+    registrarAsync(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const input = {
                 nome: req.body.nome,
                 logo: req.body.logo,
                 email: req.body.email,
                 senha: req.body.senha,
-                salarioMinimoVigente: yield salariominimo_bancocentral_1.SalarioMinimoBC.salarioMinimo()
             };
-            res.json(yield this._registrarEmpresaUseCase.execute(input));
+            res.json(yield this._registrarEstudanteUseCase.execute(input));
         });
     }
 }
-exports.EmpresaController = EmpresaController;
+exports.EstudanteController = EstudanteController;
 __decorate([
-    (0, decorator_server_1.route)("/salariobc", enum_server_1.methods.GET)
-], EmpresaController.prototype, "salarioBCAsync", null);
-__decorate([
-    (0, decorator_server_1.route)("/empresa/novocadastro", enum_server_1.methods.POST)
-], EmpresaController.prototype, "cadastrarEmpresaAsync", null);
+    (0, decorator_server_1.route)("/estudante/novo", enum_server_1.methods.POST)
+], EstudanteController.prototype, "registrarAsync", null);

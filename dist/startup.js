@@ -4,13 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql2_1 = __importDefault(require("mysql2"));
-const empresa_services_1 = require("./src/application/services/empresa.services");
-const produto_services_1 = require("./src/application/services/produto.services");
-const registrarEmpresa_usecase_1 = require("./src/application/usecases/gerenciarconta/registrarEmpresa.usecase");
-const empresa_controller_1 = require("./src/infrastructure/controllers/empresa.controller");
-const empresa_database_1 = require("./src/infrastructure/database/entities/empresa.database");
-const produto_database_1 = require("./src/infrastructure/database/entities/produto.database");
 const server_1 = require("./src/infrastructure/server/server");
+const estudante_controller_1 = require("./src/infrastructure/controllers/estudante.controller");
+const registrarEstudante_usecase_1 = require("./src/application/usecases/gerenciarconta/registrarEstudante.usecase");
+const estudante_services_1 = require("./src/application/services/estudante.services");
+const estudante_database_1 = require("./src/infrastructure/database/entities/estudante.database");
 class Startup {
     static execute() {
         server_1.Server.initialize();
@@ -19,7 +17,7 @@ class Startup {
     static inject() {
         const instances = [];
         //injeção de dependência
-        instances.push(new empresa_controller_1.EmpresaController(new registrarEmpresa_usecase_1.RegistrarEmpresa(new empresa_services_1.EmpresaService(new empresa_database_1.DbEmpresa(this.mysqlConnection), new produto_services_1.ProdutoService(new produto_database_1.DbProduto(this.mysqlConnection))))));
+        instances.push(new estudante_controller_1.EstudanteController(new registrarEstudante_usecase_1.RegistrarEstudante(new estudante_services_1.EstudanteService(new estudante_database_1.DbEstudante(this.mysqlConnection)))));
         server_1.Server.useRoute(instances);
     }
 }

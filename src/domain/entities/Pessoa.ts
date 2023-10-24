@@ -1,4 +1,3 @@
-import { Email } from '../value-objects/Email';
 import { errors } from '../../utils/messages.utils';
 
 export class Pessoa{
@@ -6,10 +5,10 @@ export class Pessoa{
     private _id?: number;
     private _nome: string;
     private _sobrenome: string;
-    private _email: Email;
+    private _email: string;
     private _senha: string;
 
-    constructor(nome: string, sobrenome: string, email: Email, senha: string){
+    constructor(nome: string, sobrenome: string, email: string, senha: string){
 
         if(this.constructor == Pessoa){
             throw Error(errors.abstract)

@@ -1,12 +1,10 @@
 import * as dotenv from "dotenv";
 import mysql from 'mysql2';
-import { EmpresaService } from "./src/application/services/empresa.services";
-import { ProdutoService } from "./src/application/services/produto.services";
-import { RegistrarEmpresa } from "./src/application/usecases/gerenciarconta/registrarEmpresa.usecase";
-import { EmpresaController } from "./src/infrastructure/controllers/empresa.controller";
-import { DbEmpresa } from "./src/infrastructure/database/entities/empresa.database";
-import { DbProduto } from "./src/infrastructure/database/entities/produto.database";
 import { Server } from "./src/infrastructure/server/server";
+import { EstudanteController } from "./src/infrastructure/controllers/estudante.controller";
+import { RegistrarEstudante } from "./src/application/usecases/gerenciarconta/registrarEstudante.usecase";
+import { EstudanteService } from "./src/application/services/estudante.services";
+import { DbEstudante } from "./src/infrastructure/database/entities/estudante.database";
 
 class Startup {
 
@@ -22,11 +20,10 @@ class Startup {
 
     //injeção de dependência
     instances.push(
-      new EmpresaController(
-        new RegistrarEmpresa(
-          new EmpresaService(
-            new DbEmpresa(this.mysqlConnection),
-            new ProdutoService(new DbProduto(this.mysqlConnection))
+      new EstudanteController(
+        new RegistrarEstudante(
+          new EstudanteService(
+            new DbEstudante(this.mysqlConnection)
           )
         )
       )

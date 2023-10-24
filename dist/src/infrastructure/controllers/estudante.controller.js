@@ -22,13 +22,19 @@ class EstudanteController {
     constructor(registrarEstudanteUseCase) {
         this._registrarEstudanteUseCase = registrarEstudanteUseCase;
     }
-    index(req, res) {
+    registrarAsync(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.json(yield this._registrarEstudanteUseCase.execute());
+            const input = {
+                nome: req.body.nome,
+                logo: req.body.logo,
+                email: req.body.email,
+                senha: req.body.senha,
+            };
+            res.json(yield this._registrarEstudanteUseCase.execute(input));
         });
     }
 }
 exports.EstudanteController = EstudanteController;
 __decorate([
-    (0, decorator_server_1.route)("/", enum_server_1.methods.GET)
-], EstudanteController.prototype, "index", null);
+    (0, decorator_server_1.route)("/estudante/novo", enum_server_1.methods.POST)
+], EstudanteController.prototype, "registrarAsync", null);

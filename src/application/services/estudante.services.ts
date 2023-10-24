@@ -3,27 +3,27 @@ import { IEstudanteRepository } from "../../repository/entities/estudante.reposi
 
 export class EstudanteService implements IEstudanteRepository{
 
+    private readonly _estudanteRepository: IEstudanteRepository;
 
-    private readonly _estudanteService: IEstudanteRepository;
-
-    constructor(estudanteService: IEstudanteRepository){
-        this._estudanteService = estudanteService;
+    constructor(estudanteRepostiory: IEstudanteRepository){
+        this._estudanteRepository = estudanteRepostiory;
     }
 
-    public adicionar(estudante: Estudante): Promise<number> {
-        return this._estudanteService.adicionar(estudante)
+    public async adicionar(estudante: Estudante): Promise<number> {
+        estudante.id = await this._estudanteRepository.adicionar(estudante);
+        return estudante.id;
     }
 
     public obter(): Promise<Estudante>{
-        return this._estudanteService.obter()
+        return this._estudanteRepository.obter();
     }
 
     public apagar(id: number): Promise<number>{
-        return this._estudanteService.apagar(id)
+        return this._estudanteRepository.apagar(id);
     }
 
     public atualizar(estudante: Estudante): Promise<number>{
-        return this._estudanteService.atualizar(estudante)
+        return this._estudanteRepository.atualizar(estudante);
     }  
 
 }
